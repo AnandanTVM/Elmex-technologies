@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -12,21 +12,25 @@ import {
 import { useFormik } from 'formik';
 import './Adduser.css';
 import { userSchema } from '../../../validation/validation';
-
+import { addEmployee } from '../../../axios/Service/HomeService';
+import swal from 'sweetalert';
 function Adduser() {
+  const [error, setError] = useState(false)
   const onSubmit = async (values, actions) => {
-    console.log('here');
-    console.log(values);
 
-    // const status = await addPlan(token, values);
-    // if (status.status === 'error') {
-    //   setError('Please try again after some time.');
-    // } else if (status.status === 'success') {
-    //   // navigate('/adminHome');
-    //   actions.resetForm();
-
-    //   setError('Sucessfully added.');
-    // }
+    const status = await addEmployee(values);
+    console.log(status)
+    if (status) {
+      swal({
+        title: "Good job!",
+        text: "You clicked the button!",
+        icon: "success",
+        button: "Aww yiss!",
+      });
+      actions.resetForm();
+    } else {
+      setError(status.Message);
+    }
   };
   const {
     values,
@@ -55,6 +59,7 @@ function Adduser() {
             <h1 className="text-white mb-4">Add Employee Details</h1>
             <form onSubmit={handleSubmit}>
               <MDBCard>
+                <p>{error ? error : ""}</p>
                 <MDBCardBody className="px-4">
                   <MDBRow className="align-items-center pt-4 pb-3">
                     <MDBCol md="3" className="ps-5">
