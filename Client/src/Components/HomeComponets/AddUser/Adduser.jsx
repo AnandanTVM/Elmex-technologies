@@ -18,7 +18,6 @@ function Adduser() {
     console.log('here');
     console.log(values);
 
-    // const token = localStorage.getItem('Admintoken');
     // const status = await addPlan(token, values);
     // if (status.status === 'error') {
     //   setError('Please try again after some time.');
