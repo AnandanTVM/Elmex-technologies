@@ -1,15 +1,14 @@
 const homeUtil = require("../util/homeUtil");
 
-const AddEmployeeContro = (req, res) => {
+const AddEmployeeContro = (req, res) =>
   homeUtil
     .AddEmployee(req.body)
     .then((r) => res.json({ status: true, Message: "Upload Success" }))
     .catch((err) => {
       res.json({ status: false, Message: "something went wrong", stack: err });
     });
-};
 
-const getAllEmployecontro = (req, res) => {
+const getAllEmployecontro = (req, res) =>
   homeUtil
     .getAllEmploye()
     .then((Employedetails) =>
@@ -18,5 +17,18 @@ const getAllEmployecontro = (req, res) => {
     .catch((err) =>
       res.json({ status: false, Message: "something went wrong", stack: err })
     );
+
+const getAllEmployeByIdcontro = (req, res) =>
+  homeUtil
+    .getAllEmployeById(req.params.Id)
+    .then((Employedetails) =>
+      res.json({ status: true, response: Employedetails })
+    )
+    .catch((err) =>
+      res.json({ status: false, Message: "something went wrong", stack: err })
+    );
+module.exports = {
+  AddEmployeeContro,
+  getAllEmployecontro,
+  getAllEmployeByIdcontro,
 };
-module.exports = { AddEmployeeContro, getAllEmployecontro };
