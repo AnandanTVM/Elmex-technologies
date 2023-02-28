@@ -15,17 +15,16 @@ import { userSchema } from '../../../validation/validation';
 import { addEmployee } from '../../../axios/Service/HomeService';
 import swal from 'sweetalert';
 function Adduser() {
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   const onSubmit = async (values, actions) => {
-
     const status = await addEmployee(values);
-    console.log(status)
+    console.log(status);
     if (status) {
       swal({
-        title: "Good job!",
-        text: "You clicked the button!",
-        icon: "success",
-        button: "Aww yiss!",
+        title: 'Employee Added Successfully!',
+        text: 'You clicked the button!',
+        icon: 'success',
+        button: 'Aww yiss!',
       });
       actions.resetForm();
     } else {
@@ -59,11 +58,11 @@ function Adduser() {
             <h1 className="text-white mb-4">Add Employee Details</h1>
             <form onSubmit={handleSubmit}>
               <MDBCard>
-                <p>{error ? error : ""}</p>
+                <p>{error ? error : ''}</p>
                 <MDBCardBody className="px-4">
                   <MDBRow className="align-items-center pt-4 pb-3">
                     <MDBCol md="3" className="ps-5">
-                      <h6 className="mb-0">Full name</h6>
+                      <h6 className="mb-0">Full Name</h6>
                     </MDBCol>
 
                     <MDBCol md="9" className="pe-5">
@@ -91,7 +90,7 @@ function Adduser() {
 
                   <MDBRow className="align-items-center pt-4 pb-3">
                     <MDBCol md="3" className="ps-5">
-                      <h6 className="mb-0"> job title</h6>
+                      <h6 className="mb-0"> Job Title</h6>
                     </MDBCol>
 
                     <MDBCol md="9" className="pe-5">
@@ -115,7 +114,7 @@ function Adduser() {
                   <hr className="mx-n3" />
                   <MDBRow className="align-items-center pt-4 pb-3">
                     <MDBCol md="3" className="ps-5">
-                      <h6 className="mb-0">Email address</h6>
+                      <h6 className="mb-0">Email Address</h6>
                     </MDBCol>
 
                     <MDBCol md="9" className="pe-5">
@@ -181,7 +180,7 @@ function Adduser() {
                   <hr className="mx-n3" />
                   <MDBRow className="align-items-center pt-4 pb-3">
                     <MDBCol md="3" className="ps-5">
-                      <h6 className="mb-0">Work experience</h6>
+                      <h6 className="mb-0">Work Experience</h6>
                     </MDBCol>
 
                     <MDBCol md="9" className="pe-5">
@@ -200,10 +199,14 @@ function Adduser() {
                   </MDBRow>
 
                   <hr className="mx-n3" />
-
-                  <MDBBtn className="my-4" size="lg">
-                    Upload
-                  </MDBBtn>
+                  <MDBRow className="align-items-center pt-4 pb-3">
+                    <MDBCol md="9"></MDBCol>
+                    <MDBCol md="3">
+                      <MDBBtn className="my-4" size="lg">
+                        Upload
+                      </MDBBtn>
+                    </MDBCol>
+                  </MDBRow>
                 </MDBCardBody>
               </MDBCard>
             </form>

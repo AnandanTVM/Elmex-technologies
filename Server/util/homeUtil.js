@@ -1,6 +1,6 @@
-const collection = require("../config/collection");
-const db = require("../config/connection");
-const { ObjectId } = require("mongodb");
+const collection = require('../config/collection');
+const db = require('../config/connection');
+const { ObjectId } = require('mongodb');
 module.exports = {
   AddEmployee: (details) => {
     return new Promise((resolve, reject) => {
