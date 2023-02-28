@@ -3,12 +3,23 @@ const db = require('../config/connection');
 const { ObjectId } = require('mongodb');
 module.exports = {
   AddEmployee: (details) => {
-    return new Promise((resolve, reject) => {
-      db.get()
+    return new Promise(async (resolve, reject) => {
+      const result = await db
+        .get()
         .collection(collection.EMPLOYEE_COLLECTION)
-        .insertOne(details)
-        .then(() => resolve())
-        .catch((err) => reject(err));
+        .find({
+          $or: [{ email: details.email }, { phone: details.phone }],
+        })
+        .toArray();
+      if (result.length === 0) {
+        db.get()
+          .collection(collection.EMPLOYEE_COLLECTION)
+          .insertOne(details)
+          .then(() => resolve())
+          .catch((err) => reject(err));
+      } else {
+        reject({ Message: 'Employee Duplication' });
+      }
     });
   },
   getAllEmploye: () => {
