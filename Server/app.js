@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-
+const path = require('path');
 const app = express();
 const cors = require('cors');
 // data base connection
@@ -15,6 +15,10 @@ const corsOptions = {
   credentials: true, // access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
+
+//sever config
+app.use(express.static(path.join(__dirname, '../Client/build/')));
+
 app.use(cors(corsOptions));
 
 app.use(express.json());
@@ -22,7 +26,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // redirects to roughts
 app.use('/api', homeRouter);
-
+// for sever
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../Client/build/index.html'));
+});
 app.use(errorHandler);
 app.use(notFound);
 
