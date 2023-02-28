@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -15,11 +15,10 @@ import { userSchema } from '../../../validation/validation';
 import { addEmployee } from '../../../axios/Service/HomeService';
 import swal from 'sweetalert';
 function Adduser() {
-  const [error, setError] = useState(false);
   const onSubmit = async (values, actions) => {
     const status = await addEmployee(values);
     console.log(status);
-    if (status) {
+    if (status.status) {
       swal({
         title: 'Employee Added Successfully!',
         text: 'You clicked the button!',
@@ -28,7 +27,12 @@ function Adduser() {
       });
       actions.resetForm();
     } else {
-      setError(status.Message);
+      swal({
+        title: 'Employee Duplication',
+        text: 'Plase check Email/Phone',
+        icon: 'warning',
+        button: 'OK',
+      });
     }
   };
   const {
@@ -58,7 +62,6 @@ function Adduser() {
             <h1 className="text-white mb-4">Add Employee Details</h1>
             <form onSubmit={handleSubmit}>
               <MDBCard>
-                <p>{error ? error : ''}</p>
                 <MDBCardBody className="px-4">
                   <MDBRow className="align-items-center pt-4 pb-3">
                     <MDBCol md="3" className="ps-5">
